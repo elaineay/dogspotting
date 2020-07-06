@@ -1,0 +1,42 @@
+.listFull {
+      text-align: left;
+      margin: 20px;
+}
+
+.header {
+      color: cornflowerblue;
+      text-align: center;
+      font-size: xx-large;
+      padding: 10px;
+}
+
+.whiteBoop {
+      background-color: white;
+      color: black;
+}
+
+.blackBoop {
+      background-color: black;
+      color: white;
+}
+
+.formInput {
+      text-align: center;
+}
+
+.listItems {
+      background-color: white;
+}
+
+.size {
+      color: burlywood;
+      font-size: small;
+      margin-right: 10px;
+}
+
+.delete {
+      float: right;
+      margin-right: 20px;
+      background-color: burlywood;
+}
+
