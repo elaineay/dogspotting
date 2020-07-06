@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ExpandItem from '../ExpandItem/ExpandItem';
-import * as actions from '../../actions/index.js';
+// import * as actions from '../../actions/index.js';
 import { connect } from 'react-redux';
 import './ListFull.css';
 import api from '../../api';
@@ -27,6 +27,8 @@ class ListFull extends React.Component {
 
   componentDidMount = async () => {
     await api.getDogSpots().then(dogspots => {
+      console.log("dogspots" + dogspots);
+
       this.setState({
         dogspots: dogspots.data.data,
         isLoading: false,
@@ -70,8 +72,8 @@ class ListFull extends React.Component {
         
 
         <ul className = "listItems">
-          { Object.entries(dogspots).map( item => (
-            <span key = {item.id} onClick = {() =>this.expandItem(item)}>
+          { Object.entries(dogspots).map( (item, index) => (
+            <span key = {index} onClick = {() =>this.expandItem(item)}>
               <span className="size">
                 {item.size}
               </span>
@@ -101,7 +103,6 @@ class ListFull extends React.Component {
     const {size, text} = this.state.input;
     const payload = {size, text}
 
-    console.log(text);
     await api.createSpot(payload).then(res => {
       this.setState({
           input: {
@@ -110,17 +111,6 @@ class ListFull extends React.Component {
           }
         })
     })
-
-
-    // event.preventDefault();
-    // this.props.dispatch(actions.addItem(this.state.input.size, this.state.input.text));
-
-    // this.setState({
-    //   input: {
-    //     size: "",
-    //     text: ""
-    //   }
-    // });
   }
 
   expandItem = input => {
