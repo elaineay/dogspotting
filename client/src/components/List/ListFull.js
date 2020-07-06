@@ -1,22 +1,42 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import ListItem from '../ListItem/ListItem';
+import ExpandItem from '../ExpandItem/ExpandItem';
 import * as actions from '../../actions/index.js';
 import { connect } from 'react-redux';
 import './ListFull.css';
+import api from '../../api';
+import UpdateItem from './UpdateItem';
+import DeleteItem from './DeleteItem';
 
 class ListFull extends React.Component {
-  state = {
-    input: {
-      size: "",
-      text: ""
-    },
-    curr: "",
-    isBoop: true
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      input: {
+        size: "",
+        text: ""
+      },
+      dogspots: [],
+      isLoading: false,
+      apiResponse: "",
+      curr: "",
+      isBoop: true,
+    }
+  }
+
+  componentDidMount = async () => {
+    await api.getDogSpots().then(dogspots => {
+      this.setState({
+        dogspots: dogspots.data.data,
+        isLoading: false,
+      })
+    })
   }
 
   render() {
     let change = this.state.isBoop ? "whiteBoop" : "blackBoop";
+    const {dogspots} = this.state;
 
     return (
       <div className="listFull">
@@ -50,25 +70,25 @@ class ListFull extends React.Component {
         
 
         <ul className = "listItems">
-          { this.props.inputs.map ( item => (
-            <p key = {item.id} onClick = {() =>this.expandItem(item)}>
+          { Object.entries(dogspots).map( item => (
+            <span key = {item.id} onClick = {() =>this.expandItem(item)}>
               <span className="size">
                 {item.size}
               </span>
               
               {item.text}
+
+              <UpdateItem currId = {item.id} />
               
-              <span className="delete" onClick={() => this.deleteItem(item)}> 
-                [Delete] 
-              </span>
-            </p>
+              <DeleteItem currId = {item.id}/>
+            </span>
           ))}
         </ul>
 
         <div className="header">
           <span>More Information:</span>
         </div>
-          <ListItem curr = {this.state.curr}></ListItem>
+          <ExpandItem curr = {this.state.curr}></ExpandItem>
       </div>
     )
   }
@@ -77,24 +97,30 @@ class ListFull extends React.Component {
     this.setState({isBoop: !this.state.isBoop})
   }
 
-  onAdd = event => {
-    event.preventDefault();
-    this.props.dispatch(actions.addItem(this.state.input.size, this.state.input.text));
+  onAdd = async () => {
+    const {size, text} = this.state.input;
+    const payload = {size, text}
 
-    this.setState({
-      input: {
-        size: "",
-        text: ""
-      }
-    });
+    console.log(text);
+    await api.createSpot(payload).then(res => {
+      this.setState({
+          input: {
+            size: "",
+            text: ""
+          }
+        })
+    })
 
-    // this part sets things to local --> specific to component only
-    // const item = { id: this.state.input.id, text: this.state.input.text };
-    // this.setState({item});
-  }
 
-  deleteItem(input) {
-    this.props.dispatch(actions.deleteItem(input.id));
+    // event.preventDefault();
+    // this.props.dispatch(actions.addItem(this.state.input.size, this.state.input.text));
+
+    // this.setState({
+    //   input: {
+    //     size: "",
+    //     text: ""
+    //   }
+    // });
   }
 
   expandItem = input => {

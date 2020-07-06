@@ -1,5 +1,5 @@
 import React from 'react';
-import ListFull from '../ListFull/ListFull';
+import ListFull from '../List/ListFull';
 import './App.css'
 
 function App () {
