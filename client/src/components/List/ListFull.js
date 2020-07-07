@@ -82,7 +82,7 @@ class ListFull extends React.Component {
               </span>
               
               <span className = "buttons">
-                <UpdateItem id = {item._id} handleChange = {this.handleUpdate} />
+                <UpdateItem id = {item._id}/>
                 <DeleteItem id = {item._id} handleChange = {this.handleDelete} />
               </span>
               
@@ -114,10 +114,6 @@ class ListFull extends React.Component {
           }
         })
     })
-  }
-
-  handleUpdate = () => {
-
   }
 
   handleDelete = id => {
