@@ -8,4 +8,4 @@ const DogSpot = new Schema(
       }
 )
 
-module.exports = mongoose.model('dogspots', DogSpot)
+module.exports = mongoose.model('dogspots', DogSpot, 'dogspotting')

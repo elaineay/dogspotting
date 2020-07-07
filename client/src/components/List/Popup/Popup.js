@@ -7,7 +7,7 @@ class Popup extends React.Component {
             super(props)
 
             this.state = {
-                  id: this.props.currId,
+                  id: this.props.id,
                   size: "",
                   text: "",
             }
@@ -36,7 +36,7 @@ class Popup extends React.Component {
                                     </form>
                               </div>
 
-                              <button onClick={this.props.closePopup}>close me</button>
+                              <button onClick={this.props.closePopup}>Close</button>
                         </div>
                   </div>
             );
@@ -48,24 +48,28 @@ class Popup extends React.Component {
                   ...this.state,
                   [event.target.name]: value
             });
+
+            console.log("value" + value)
       }
             
 
       handleUpdate = async () => {
             const { id, size, text } = this.state; 
             const payload = { size, text };
+            console.log(this.state)
 
-            await api.updateSpot(id, payload).then(res => {
-                  this.setState({
-                        size: "",
-                        text: "",
+            await api.updateSpot(id, payload)
+                  .then(res => {
+                        this.setState({
+                              size: "",
+                              text: "",
+                        })
                   })
-            })
       }
 
       componentDidMount = async () => {
-            const { currId } = this.state
-            const dogspot = await api.getSpotById(currId);
+            const { id } = this.state
+            const dogspot = await api.getSpotById(id);
 
             this.setState({
                   size: dogspot.data.data.size,

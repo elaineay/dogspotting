@@ -26,6 +26,13 @@
 
 .listItems {
       background-color: white;
+      color: black
+}
+
+.buttons {
+      float: right;
+      text-align: center;
+      display: inline-block;
 }
 
 .size {
@@ -33,10 +40,3 @@
       font-size: small;
       margin-right: 10px;
 }
-
-.delete {
-      float: right;
-      margin-right: 20px;
-      background-color: burlywood;
-}
-

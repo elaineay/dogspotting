@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExpandItem from '../ExpandItem/ExpandItem';
 // import * as actions from '../../actions/index.js';
 import { connect } from 'react-redux';
-import './ListFull.css';
+import './List.css';
 import api from '../../api';
 import UpdateItem from './UpdateItem';
 import DeleteItem from './DeleteItem';
@@ -27,7 +27,6 @@ class ListFull extends React.Component {
 
   componentDidMount = async () => {
     await api.getDogSpots().then(dogspots => {
-      console.log("dogspots" + dogspots);
 
       this.setState({
         dogspots: dogspots.data.data,
@@ -72,18 +71,22 @@ class ListFull extends React.Component {
         
 
         <ul className = "listItems">
-          { Object.entries(dogspots).map( (item, index) => (
-            <span key = {index} onClick = {() =>this.expandItem(item)}>
+          { this.state.dogspots.map( item => (
+            <p key = {item._id} >
               <span className="size">
                 {item.size}
               </span>
               
-              {item.text}
-
-              <UpdateItem currId = {item.id} />
+              <span onClick = {() =>this.expandItem(item)}>
+                {item.text}
+              </span>
               
-              <DeleteItem currId = {item.id}/>
-            </span>
+              <span className = "buttons">
+                <UpdateItem id = {item._id} handleChange = {this.handleUpdate} />
+                <DeleteItem id = {item._id} handleChange = {this.handleDelete} />
+              </span>
+              
+            </p>
           ))}
         </ul>
 
@@ -111,6 +114,15 @@ class ListFull extends React.Component {
           }
         })
     })
+  }
+
+  handleUpdate = () => {
+
+  }
+
+  handleDelete = id => {
+    const newDogspots = this.state.dogspots.filter(dogspot => dogspot._id !== id);
+    this.setState({dogspots: newDogspots});
   }
 
   expandItem = input => {

@@ -1,5 +1,6 @@
 import React from "react";
 import Popup from './Popup/Popup';
+import './List.css';
 
 // https://www.skptricks.com/2019/01/create-simple-popup-example-in-react.html
 class UpdateItem extends React.Component {
@@ -10,19 +11,19 @@ class UpdateItem extends React.Component {
 
       render() {
             return (
-                  <div>
-                        <button onClick={this.togglePopup.bind(this)}>
+                  <span>
+                        <button className = "update" onClick={this.togglePopup.bind(this)} >
                               Update
                         </button> 
 
                         {this.state.popup ?
                               <Popup 
                                     closePopup = { this.togglePopup.bind(this) }
-                                    currId = { this.props.currId }
+                                    id = { this.props.id }
                               />
                               : null
                         }
-                  </div>
+                  </span>
                  
             )
       }

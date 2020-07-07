@@ -1,5 +1,4 @@
 const DogSpot = require('../models/dogspot-model')
-const { findOneAndDelete } = require('../models/dogspot-model')
 
 createSpot = (req, res) => {
       const body = req.body
@@ -74,7 +73,7 @@ updateSpot = async (req, res) => {
 }
 
 deleteSpot = async (req, res) => {
-      await DogSpot.findOneAndDelete({ _id: req.params.id }, (err, dogspot) => {
+      await DogSpot.findByIdAndDelete(req.params.id, (err, dogspot) => {
             if (err) {
                   return res.status(400).json({ success: false, error: err})
             }
