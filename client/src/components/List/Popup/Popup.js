@@ -15,7 +15,7 @@ class Popup extends React.Component {
 
       render() {
             return (
-                  <div className='popup'>
+                  <span className='popup'>
                         <div className='popup_inner'>
                               <h1>Update An Existing Spotting</h1>
 
@@ -38,7 +38,7 @@ class Popup extends React.Component {
 
                               <button onClick={this.props.closePopup}>Close</button>
                         </div>
-                  </div>
+                  </span>
             );
       }
 
@@ -48,15 +48,12 @@ class Popup extends React.Component {
                   ...this.state,
                   [event.target.name]: value
             });
-
-            console.log("value" + value)
       }
             
 
       handleUpdate = async () => {
             const { id, size, text } = this.state; 
             const payload = { size, text };
-            console.log(this.state)
 
             await api.updateSpot(id, payload)
                   .then(res => {

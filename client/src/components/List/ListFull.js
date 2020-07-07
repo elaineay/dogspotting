@@ -70,9 +70,9 @@ class ListFull extends React.Component {
         </div>
         
 
-        <ul className = "listItems">
+        <div >
           { this.state.dogspots.map( item => (
-            <p key = {item._id} >
+            <div key = {item._id} className = "listItems">
               <span className="size">
                 {item.size}
               </span>
@@ -86,9 +86,9 @@ class ListFull extends React.Component {
                 <DeleteItem id = {item._id} handleChange = {this.handleDelete} />
               </span>
               
-            </p>
+            </div>
           ))}
-        </ul>
+        </div>
 
         <div className="header">
           <span>More Information:</span>
