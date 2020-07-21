@@ -1,7 +1,7 @@
 import axios from 'axios' // promise-based HTTP async code
 
 const api = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
 })
 
 export const createSpot = payload => api.post(`/dogspotting`, payload)
