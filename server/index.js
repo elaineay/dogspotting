@@ -24,6 +24,7 @@ app.use('/api', dogSpotRouter)
 //       res.sendFile(path.resolve('/client/build/index.html'))
 // })
 
+// delivers HTML file using Express 
 app.get('*', function(req, res) {
       res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
